@@ -1,0 +1,48 @@
+title = "James Larsen"
+baseURL = "http://example.org/"
+tags = ["portfolio", "web design", "blog"]
+languageCode = "en-us"
+
+publishDir = "docs"
+
+config = "config.toml"
+
+theme = "osprey"
+canonifyURLS = true
+googleAnalytics = ""
+disableKinds = ["taxonomy", "taxonomyTerm"] # This theme does not currently use "tag" and "category" taxonomies
+
+[Params]
+		tagline = "James Larsen"
+    author = "James Larsen"
+    logoBig = "/images/chip.png"
+    logoSmall = "/images/chip.png"
+    favicon = "favicon.ico"
+    opengraphImage = "/images/chip.png"
+    github = "somesocks"
+    email = "somesocks@gmail.com"
+    googleTagManager = ""
+    highlightJS = true
+    copyright = true
+    credit = true
+    customCSS = false
+    cacheBustCSS = false
+    cacheBustJS = false
+    ajaxFormspree = true
+
+[[menu.main]]
+    name = "About"
+    url  = "/#about"
+    weight = 1
+[[menu.main]]
+    name = "Work"
+    url  = "/#work"
+    weight = 2
+[[menu.main]]
+    name = "Blog"
+    url  = "/#blog"
+    weight = 3
+[[menu.main]]
+    name = "Contact"
+    url  = "/#contact"
+    weight = 4

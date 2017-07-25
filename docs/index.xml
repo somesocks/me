@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>James Larsen</title>
+    <link>http://example.org/</link>
+    <description>Recent content on James Larsen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>true</copyright>
+    <lastBuildDate>Tue, 25 Jul 2017 21:23:22 +0200</lastBuildDate>
+    
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello</title>
+      <link>http://example.org/blog/hello/</link>
+      <pubDate>Tue, 25 Jul 2017 21:23:22 +0200</pubDate>
+      
+      <guid>http://example.org/blog/hello/</guid>
+      <description>Hello, world!</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://example.org/about/</link>
+      <pubDate>Tue, 25 Jul 2017 21:15:22 +0200</pubDate>
+      
+      <guid>http://example.org/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The Lua Lockbox - Cryptography in Lua</title>
+      <link>http://example.org/gallery/test/</link>
+      <pubDate>Mon, 15 May 2017 22:25:02 -0700</pubDate>
+      
+      <guid>http://example.org/gallery/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vet - functional JS validators</title>
+      <link>http://example.org/gallery/test2/</link>
+      <pubDate>Mon, 15 May 2017 22:25:02 -0700</pubDate>
+      
+      <guid>http://example.org/gallery/test2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>daypack - data normalization and packing</title>
+      <link>http://example.org/gallery/test4/</link>
+      <pubDate>Mon, 15 May 2017 22:25:02 -0700</pubDate>
+      
+      <guid>http://example.org/gallery/test4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>uchain - a better callback hell</title>
+      <link>http://example.org/gallery/test3/</link>
+      <pubDate>Mon, 15 May 2017 22:25:02 -0700</pubDate>
+      
+      <guid>http://example.org/gallery/test3/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
