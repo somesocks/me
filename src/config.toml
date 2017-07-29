@@ -3,7 +3,7 @@ baseURL = "https://somesocks.github.io/me/"
 tags = ["portfolio", "web design", "blog"]
 languageCode = "en-us"
 
-publishDir = "docs"
+publishDir = "../docs"
 
 config = "config.toml"
 
