@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+
+        <title>
+            
+            
+                A Better Callback Hell | James Larsen
+            
+        </title>
+
+        <meta name="title" content="A Better Callback Hell | James Larsen">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="referrer" content="no-referrer-when-downgrade">
+        <meta name="generator" content="">
+        <base href="https://somesocks.github.io/me/">
+        <meta name="description" content="In my day-to-day work, I write quite a lot of JavaScript. And, you really can&rsquo;t get far in JS before you have to write asynchronous code.
+Thanks to first-class functions and closures, handling asynchronous code with callbacks is pretty easy in JS, compared to C&#43;&#43; or Java.
+That said, it can get easy to write some sort of unreadable mess, especially when you have to chain asynchronous dependencies. We&rsquo;re all pretty familiar with &lsquo;callback hell&rsquo;, where you nest callbacks inside callbacks ad nauseam:">
+        <meta name="author" content="James Larsen">
+        
+        <meta property="og:title" content="A Better Callback Hell | James Larsen">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://somesocks.github.io/me/">
+        <meta property="og:image" content="https://somesocks.github.io/me//images/chip.png">
+        <meta name="og:description" content="In my day-to-day work, I write quite a lot of JavaScript. And, you really can&rsquo;t get far in JS before you have to write asynchronous code.
+Thanks to first-class functions and closures, handling asynchronous code with callbacks is pretty easy in JS, compared to C&#43;&#43; or Java.
+That said, it can get easy to write some sort of unreadable mess, especially when you have to chain asynchronous dependencies. We&rsquo;re all pretty familiar with &lsquo;callback hell&rsquo;, where you nest callbacks inside callbacks ad nauseam:">
+
+        
+        <link rel="apple-touch-icon" sizes="57x57" href="https://somesocks.github.io/me/images/logo/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="https://somesocks.github.io/me/images/logo/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="https://somesocks.github.io/me/images/logo/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://somesocks.github.io/me/images/logo/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="https://somesocks.github.io/me/images/logo/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://somesocks.github.io/me/images/logo/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="https://somesocks.github.io/me/images/logo/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://somesocks.github.io/me/images/logo/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://somesocks.github.io/me/images/logo/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="images/logo/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://somesocks.github.io/me/images/logo/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="https://somesocks.github.io/me/images/logo/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://somesocks.github.io/me/images/logo/favicon-16x16.png">
+        <link rel="manifest" href="images/logo/manifest.json">
+        <meta name="msapplication-TileColor" content="#FFF">
+        <meta name="msapplication-TileImage" content="/images/logo/ms-icon-144x144.png">
+        <meta name="theme-color" content="#FFF">
+        
+
+        <link rel="canonical" href="https://somesocks.github.io/me/blog/a-better-callback-hell/">
+        
+        <link rel="stylesheet" href="https://somesocks.github.io/me/styles/main.css" type="text/css">
+        
+        
+        
+    </head>
+
+    <body>
+        
+
+        
+
+        <nav class="row middle-xs center-xs">
+            <div class="col-xs-6 col-sm-1 logo">
+                <a href="https://somesocks.github.io/me/"><img src="https://somesocks.github.io/me/images/chip.png" alt="James Larsen"></a>
+            </div>
+            
+            <div class="col-xs-3 col-sm-2"><h3><a href="https://somesocks.github.io/me/#about">About</a></h3></div>
+            
+            <div class="col-xs-3 col-sm-2"><h3><a href="https://somesocks.github.io/me/#work">Work</a></h3></div>
+            
+            <div class="col-xs-3 col-sm-2"><h3><a href="https://somesocks.github.io/me/#blog">Blog</a></h3></div>
+            
+            <div class="col-xs-3 col-sm-2"><h3><a href="https://somesocks.github.io/me/#contact">Contact</a></h3></div>
+            
+            <div class="col-xs-6 col-sm-1 nav-toggle">
+                <a href="" class="nav-icon" onclick="return false"><img src="https://somesocks.github.io/me/images/icon-menu.png" alt="Open Menu"><img src="https://somesocks.github.io/me/images/icon-x.png" alt="Close Menu" style="display: none;"></a>
+            </div>
+        </nav>
+        <section class="nav-full row middle-xs center-xs">
+            <div class="col-xs-12">
+                <div class="row middle-xs center-xs">
+                    
+                    <div class="col-xs-12"><h1><a href="https://somesocks.github.io/me/#about">About</a></h1></div>
+                    
+                    <div class="col-xs-12"><h1><a href="https://somesocks.github.io/me/#work">Work</a></h1></div>
+                    
+                    <div class="col-xs-12"><h1><a href="https://somesocks.github.io/me/#blog">Blog</a></h1></div>
+                    
+                    <div class="col-xs-12"><h1><a href="https://somesocks.github.io/me/#contact">Contact</a></h1></div>
+                    
+                </div>
+            </div>
+        </section>
+        <main>
+
+
+    <section class="container">
+        <section class="content">
+            <h1> A Better Callback Hell </h1>
+
+            <div class="sub-header">
+                August 2017 · 4 minute read
+            </div>
+
+            <div class="entry-content">
+                
+
+<p>In my day-to-day work, I write quite a lot of JavaScript.  And, you really can&rsquo;t get far in JS before you have to write asynchronous code.</p>
+
+<p>Thanks to first-class functions and closures, handling asynchronous code with callbacks is pretty easy in JS, compared to C++ or Java.</p>
+
+<p>That said, it can get easy to write some sort of unreadable mess, especially when you have to chain asynchronous dependencies.  We&rsquo;re all pretty familiar with &lsquo;callback hell&rsquo;, where you nest callbacks inside callbacks ad nauseam:</p>
+
+<pre><code class="language-JavaScript">function doSomething (value, callback) {
+  function onSomething1 (err, res) {
+    function onSomething2 (err, res) {
+      function onSomething3 (err, res) {
+        if (err) {
+          callback(err);
+        } else {
+          doSomething4(res, callback);
+        }
+      }
+      if (err) {
+        onSomething3(err);
+      } else {
+        doSomething3(res, onSomething3);
+      }
+    }
+    if (err) {
+      onSomething2(err);
+    } else {
+      doSomething2(res, onSomething2);
+    }
+  }
+  doSomething1(value, onSomething1);
+}
+</code></pre>
+
+<p>How do we fix this?  The recommended solution today is Promises (and async/await).  A Promise is an asynchronous abstraction, representing some code that has yet to be evaluated.
+Promises do two things to address ugliness in the above code: </p>
+
+<p>&ndash;they automatically handle error propogation <br />
+&ndash;they allow dependency chaining. </p>
+
+<pre><code class="language-JavaScript">  var promise = new Promise()
+    .then(doSomething1)
+    .then(doSomething2)
+    .then(doSomething3)
+    .then(doSomething4);
+</code></pre>
+
+<p>Looks much cleaner, right?  So, why don&rsquo;t I like Promises?</p>
+
+<h2 id="eager-evaluation">Eager Evaluation</h2>
+
+<p>So, if a Promise represents a deferred asynchronous operation, when does it actually execute?  Turns out, a Promise actually starts operation synchronously as soon as you construct it.</p>
+
+<pre><code class="language-Javaascript">console.log('A');
+
+new Promise(
+    (resolve, reject) =&gt; { console.log('B'); resolve(); }
+  )
+  .then(() =&gt; console.log('C'));
+
+console.log('D');
+
+// prints out A B D C
+</code></pre>
+
+<p>Its convenient that you don&rsquo;t have to start execution yourself, but it also can cause some headaches,
+and often you have to write Promise generators to handle dependency chains correctly.</p>
+
+<pre><code class="language-Javaascript">new Promise(doSomething1)
+  .then((res) =&gt; new Promise(doSomething2)) // promise generator
+  .then((res) =&gt; new Promise(doSomething3));
+</code></pre>
+
+<p>This can also cause a little confusion, as there&rsquo;s a lot of magic under the hood here to make this work.</p>
+
+<h2 id="state">State</h2>
+
+<p>Another undesireable property of Promises is that they maintain an internal state.  This usually doesn&rsquo;t cause problems, as you rarely reuse promises, but it is possible.</p>
+
+<h2 id="interoperability">Interoperability</h2>
+
+<p>Bridging the gap between promises and callback-based code can be tedious.  Oftentimes you can&rsquo;t do Promises all the way down, because at some point you need lazy evaluation, so you use a promise generator with a callback.</p>
+
+<p>As well, Promises can only resolve to one value, whereas callbacks can return any number of values, which can add additional work to manually manipulate results.</p>
+
+<h2 id="proposed-alternative">Proposed Alternative</h2>
+
+<p>To address asynchronous issues in a simpler way, I propose an alternative to Promises and async/await:</p>
+
+<p>Move your callback to the front.</p>
+
+<pre><code class="language-JavaScript">function doSomething(value, callback) {...} // don't do this
+
+function doSomething2(callback, value) {...} // do this
+</code></pre>
+
+<p>Why?  A big part of the reason that callback-style asynchronous code can be annoying to compose is differing function signatures.  This is the same reason all callbacks have settled on having the error parameter as the first argument, so that the callbacks can handle errors regardless of nature of the result.</p>
+
+<p>Once you move the callback to the front, it gets a lot easier to write higher-order functions that compose &ldquo;chains&rdquo; of callback-style functions together asynchronously.  I wrote a library of quite a few of them myself: <a href="https://github.com/somesocks/uchain">uchain</a>.</p>
+
+<p>uchain is a collection of helpers that take in task functions <code>JavaScript  function task(callback, ...args) {...}</code> and compose them in various asynchronous ways.  Its all functions, all the way down.</p>
+
+<p>Using uchain:</p>
+
+<pre><code class="language-JavaScript">const { InSeries } = module.exports;
+
+// doSomethingWithPromises is a promise generator function
+function doSomethingWithPromises(value, callback) {
+  return Promise.resolve(value)
+  .then((value) =&gt; value)
+  .then((value) =&gt; value)
+  .then((value) =&gt; value)
+  .then(callback);
+}
+
+// prints out &quot;[1, 2, 3]&quot; eventually
+doSomethingWithPromises([1, 2, 3], console.log);
+
+// InSeries composes asynchronous functions,
+// and provides the callbacks to chain everything together
+const doSomething = InSeries(
+  (callback, ...args) =&gt; callback(null, ...args),
+  (callback, ...args) =&gt; callback(null, ...args),
+  (callback, ...args) =&gt; callback(null, ...args)
+);
+
+// doSomething is now a function like:
+// function(callback, ...args) {...}
+
+
+// prints out &quot;null, 1, 2, 3&quot; eventually;
+doSomething(console.log, 1, 2, 3);
+</code></pre>
+
+            </div>
+
+            <div class="links">
+                
+                    &laquo; <a class="basic-alignment left" href="https://somesocks.github.io/me/blog/hello/">Hello</a>
+                
+                
+            </div>
+        </section>
+        <br>
+        <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        (function() {
+            
+            
+            if (window.location.hostname == "localhost")
+                return;
+            var disqus_shortname = '';
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view comments powered by <a href="http://disqus.com/?ref_noscript">Disqus</a>.</noscript>
+</section>
+
+    </section>
+
+        </main>
+        <footer class="row middle-xs center-xs">
+            
+            <div class="col-xs-3 col-md-2"><a href="https://github.com/somesocks">GitHub</a></div>
+            
+            
+            
+            
+            <div class="col-xs-12">
+                
+                Copyright &copy; 2017 James Larsen.
+                
+                
+            </div>
+            
+            
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+            
+            <script src="https://somesocks.github.io/me/scripts/main.js" type="text/javascript"></script>
+            
+            <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+        </footer>
+    </body>
+</html>
+
