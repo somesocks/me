@@ -108,7 +108,7 @@ Why?  A big part of the reason that callback-style asynchronous code can be anno
 
 Once you move the callback to the front, it gets a lot easier to write higher-order functions that compose "chains" of callback-style functions together asynchronously.  I wrote a library of quite a few of them myself: [uchain](https://github.com/somesocks/uchain).
 
-uchain is a collection of helpers that take in task functions ``` function task(callback, ...args) {...} ``` and compose them in various asynchronous ways.  Its all functions, all the way down.
+uchain is a collection of helpers that take in asynchronouse task functions and compose them in various asynchronous ways.  Its all functions, all the way down.
 
 Using uchain:
 
